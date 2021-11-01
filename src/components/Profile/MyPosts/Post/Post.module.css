@@ -1,0 +1,7 @@
+.avatar {
+  border-radius: 20%;
+}
+.post {
+  border: 1px solid rgb(134, 132, 132);
+  background-color: rgb(247, 236, 236);
+}

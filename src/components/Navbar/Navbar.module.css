@@ -1,0 +1,15 @@
+.nav {
+  width: 25%;
+  background-color: rgb(199, 193, 184);
+  padding: 10px;
+}
+.navigation{
+  list-style: none;
+}
+.navigation>li>a{
+  color: white;
+  text-decoration: none;
+}
+.navigation>li>a.activeLink {
+  color: gold;
+}

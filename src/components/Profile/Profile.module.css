@@ -1,0 +1,14 @@
+
+/* .prolile {
+  width: 75%;
+  background-color: azure;
+  padding: 10px;
+} */
+.containerImg {
+  max-width: 1200px;
+  height: 200px;
+  background-image: url("https://i.natgeofe.com/n/4e57f727-4dfd-4f7d-9c27-9edd6f73cfd0/miami-travel_16x9.jpg");
+  /* background-repit: no-repit; */
+  background-size: cover; 
+  background-position: center;
+}

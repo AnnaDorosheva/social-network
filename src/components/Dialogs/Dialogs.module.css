@@ -1,0 +1,35 @@
+.dialogPage {
+  display: flex;
+}
+.userItem {
+  display: flex;
+  padding: 4px;
+  align-items: center;
+}
+.userItem>img {
+  width: 30px;
+  height: 30px;
+  border-radius: 25%;
+  padding-right: 6px;
+}
+.userItem>a {
+  text-decoration: none;
+}
+.userItem>a.activeLink {
+  color: gold;
+}
+.dialogUsers {
+  list-style: none;
+  width: 25%;
+}
+.dialogWindow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 75%;
+} 
+.textarea {
+  display: flex;
+align-content: center;
+margin: 10px;
+}

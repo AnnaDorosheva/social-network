@@ -1,0 +1,10 @@
+.logo {
+  width: 70px;
+  margin: 16px;
+  -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+box-shadow: 5px 5px 15px 5px #4d4a4a;
+}
+.header {
+  width: 100%;
+  background-color: antiquewhite;
+}
