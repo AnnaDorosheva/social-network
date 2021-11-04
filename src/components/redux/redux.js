@@ -21,7 +21,15 @@ const state = {
     { id:6, name: "Vova", img: "https://cspromogame.ru//storage/upload_images/avatars/1299.jpg"},
   ]
   },
-  
+};
+
+export const addPost = (postText) => {
+const newPost = {
+  id: 6,
+  message: postText,
+  liksCount: 3
+};
+state.profilePage.posts.push(newPost);
 };
 
 export default state;

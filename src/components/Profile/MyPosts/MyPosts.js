@@ -5,19 +5,21 @@ import Post from './Post/Post';
 
 const MyPosts = (props) => {
 
-  // const posts = [
-  //   { id: 1, message: "Hey averywone!", liksCount: 4},
-  //   { id: 2, message: "Perfect day today...", liksCount: 4},
-  //   { id: 3, message: "O yes!", liksCount: 4}
-  // ];
-
   const postsArr = props.posts.map(post => <Post {...post}/>)
+
+  const textarea = React.createRef();
+  const handlAddPost = () => {
+const text = textarea.current.value;
+props.addPost(text);
+console.log(props.posts)
+  }
+
   return (
     <div>
       <p>My posts</p>
       <div className={s.textarea}>
-      <textarea placeholder="Text your post..."></textarea>
-      <button type="submit">Add post</button>
+      <textarea ref={textarea} placeholder="Text your post..."></textarea>
+      <button onClick={handlAddPost} type="submit">Add post</button>
       </div>
 {postsArr}
     </div>
