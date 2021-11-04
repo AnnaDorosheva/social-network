@@ -1,0 +1,17 @@
+.userItem {
+  display: flex;
+  padding: 4px;
+  align-items: center;
+}
+.userItem>img {
+  width: 30px;
+  height: 30px;
+  border-radius: 25%;
+  padding-right: 6px;
+}
+.userItem>a {
+  text-decoration: none;
+}
+.userItem>a.activeLink {
+  color: gold;
+}

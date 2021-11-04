@@ -6,7 +6,7 @@ import Profile from '../Profile/Profile';
 import Dialogs from '../Dialogs/Dialogs';
 import { Route } from 'react-router-dom';
 
-const App = (prpops) => {
+const App = (props) => {
   return (
   
     <div className={s.container}>
@@ -15,8 +15,8 @@ const App = (prpops) => {
       <div className={s.body}>
         <Navbar/>
         <section className={s.profilePage}>
-        <Route path="/profile" component={Profile} />
-        <Route path="/dialogs" component={Dialogs} />
+        <Route path="/profile" render= { () => <Profile state={props.state.profilePage} /> } />
+        <Route path="/dialogs" render= { () => <Dialogs state={props.state.messagesPage} />} />
         </section>
       </div>
     </div>
