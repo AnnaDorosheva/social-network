@@ -6,17 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import state from "./components/redux/redux";
 import {addPost} from "./components/redux/redux";
+import rerender from "./render";
 
-const rerender = () => {
-  ReactDOM.render(
-    <BrowserRouter>
-      <App state={state} addPost={addPost}/>
-    </BrowserRouter>,
-    document.getElementById('root')
-  );
-};
 
-rerender();
+
+rerender(state);
 
 
 // If you want to start measuring performance in your app, pass a function

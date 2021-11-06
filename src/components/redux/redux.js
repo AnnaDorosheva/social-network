@@ -1,3 +1,6 @@
+import rerender from "../../render";
+import DialogText from "../Dialogs/DialogText/DialogText";
+
 const state = {
   profilePage: {
     posts: [
@@ -5,6 +8,7 @@ const state = {
     { id: 2, message: "Perfect day today...", liksCount: 4},
     { id: 3, message: "O yes!", liksCount: 4}
     ],
+    newPostText: ''
   },
   messagesPage: {
     dialogUserMessages: [
@@ -19,17 +23,36 @@ const state = {
     { id:4, name: "Oleg", img: "https://shapka-youtube.ru/wp-content/uploads/2021/02/avatarka-dlya-skaypa-dlya-parney.jpg"},
     { id:5, name: "Kolya", img: "https://gloria-mur.ru/wp-content/uploads/2017/05/avatar1-740x463.jpg"},
     { id:6, name: "Vova", img: "https://cspromogame.ru//storage/upload_images/avatars/1299.jpg"},
-  ]
+  ],
+  newDialogMessage: 'O'
   },
 };
 
-export const addPost = (postText) => {
+export const addPost = () => {
 const newPost = {
   id: 6,
-  message: postText,
+  message: state.profilePage.newPostText,
   liksCount: 3
 };
 state.profilePage.posts.push(newPost);
+state.profilePage.newPostText = "";
+rerender(state);
 };
-
+export const addDialogMessge = () => {
+const newDialogItem = {
+  id: 4,
+  message: state.messagesPage.newDialogMessage,
+}
+state.messagesPage.dialogUserMessages.push(newDialogItem);
+state.messagesPage.newDialogMessage = "";
+rerender(state);
+};
+export const chageNewPostText = (newText) => {
+  state.profilePage.newPostText = newText;
+  rerender();
+}
+export const changeNewDialogMessage = (newMessage) => {
+state.messagesPage.newDialogMessage = newMessage;
+rerender();
+}
 export default state;
