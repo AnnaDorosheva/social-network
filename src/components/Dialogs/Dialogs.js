@@ -2,6 +2,7 @@ import React from 'react';
 import DialogItem from './DialogItem/DialogItem';
 import s from "./Dialogs.module.css";
 import DialogText from './DialogText/DialogText';
+import {addDialogMessageCreator, changeNewDialogMessageActionCreator} from "../redux/store";
 
 const Dialogs = (props) => {
 
@@ -11,11 +12,13 @@ const Dialogs = (props) => {
   const textarea = React.createRef();
 
   const handleAddText = () => {
-    props.addDialogMessge();
+    const action = addDialogMessageCreator()
+    props.dispatch( action )
   };
   const handleChange = () => {
     const text = textarea.current.value;
-    props.changeNewDialogMessage(text);
+    const action = changeNewDialogMessageActionCreator(text);
+    props.dispatch( action );
   }
 
   return (

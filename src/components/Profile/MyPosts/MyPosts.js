@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import Post from './Post/Post';
-
+import {changeNewPostTextActionCreator, addPostActionCreator } from "../../redux/store";
 
 const MyPosts = (props) => {
 
@@ -10,12 +10,16 @@ const MyPosts = (props) => {
   const textarea = React.createRef();
 
   const handlAddPost = () => {
-const text = textarea.current.value;
-props.addPost(text);
+// const text = textarea.current.value;
+// props.addPost(text);
+const action = addPostActionCreator();
+props.dispatch( action );
   }
  const handleChange = () => {
  let text = textarea.current.value;
- props.chageNewPostText(text);
+//  props.chageNewPostText(text);
+const action = changeNewPostTextActionCreator( text )
+props.dispatch( action );
   }
 
   return (
