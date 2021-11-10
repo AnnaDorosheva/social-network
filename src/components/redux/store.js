@@ -1,7 +1,6 @@
-const ADD_POST = "ADD_POST";
-const ADD_DIALOG_MESSAGE = "ADD_DIALOG_MESSAGE";
-const CHANGE_NEW_POS_TEXT = "CHANGE_NEW_POS_TEXT";
-const CHANGE_NEW_DIALOG_MESSAGE = "CHANGE_NEW_DIALOG_MESSAGE";
+import sidebarReduser from "./sidebar-reduser";
+import profileReduser from "./profile-reduser";
+import dialogReduser from "./dialog-reduser";
 
 const store = {
   _state: {
@@ -49,6 +48,7 @@ const store = {
       ],
       newDialogMessage: "O",
     },
+    sidebar: {}
   },
   getState() {
     return this._state;
@@ -56,93 +56,18 @@ const store = {
   _rerender() {
     console.log("o");
   },
-  // addPost () {
-  //   const newPost = {
-  //     id: 6,
-  //     message: this._state.profilePage.newPostText,
-  //     liksCount: 3
-  //   };
-  //   this._state.profilePage.posts.push(newPost);
-  //   this._state.profilePage.newPostText = "";
-  //   this._rerender();
-  //   },
-  //   addDialogMessge () {
-  //     const newDialogItem = {
-  //       id: 4,
-  //       message: this._state.messagesPage.newDialogMessage,
-  //     }
-  //     this._state.messagesPage.dialogUserMessages.push(newDialogItem);
-  //     this._state.messagesPage.newDialogMessage = "";
-  //     this._rerender();
-  //     },
-  //     chageNewPostText (newText) {
-  //       this._state.profilePage.newPostText = newText;
-  //       this._rerender();
-  //     },
-  //     changeNewDialogMessage (newMessage) {
-  //       this._state.messagesPage.newDialogMessage = newMessage;
-  //       this._rerender();
-  //       },
+ 
   subscribe(observer) {
     this._rerender = observer;
   },
   dispatch(action) {
-    switch (action.type) {
-      case ADD_POST:
-        const newPost = {
-          id: 6,
-          message: this._state.profilePage.newPostText,
-          liksCount: 3,
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = "";
-        this._rerender();
-        break;
-      case ADD_DIALOG_MESSAGE:
-        const newDialogItem = {
-          id: 4,
-          message: this._state.messagesPage.newDialogMessage,
-        };
-        this._state.messagesPage.dialogUserMessages.push(newDialogItem);
-        this._state.messagesPage.newDialogMessage = "";
-        this._rerender();
-        break;
-      case CHANGE_NEW_POS_TEXT:
-        this._state.profilePage.newPostText = action.newText;
-        this._rerender();
-        break;
-      case CHANGE_NEW_DIALOG_MESSAGE:
-        this._state.messagesPage.newDialogMessage = action.newMessage;
-        this._rerender();
-        break;
-      default:
-    }
+    this._state.profilePage = profileReduser(this._state.profilePage, action);
+    this._state.messagesPage = dialogReduser(this._state.messagesPage, action);
+    this._state.sidebar = sidebarReduser(this._state.sidebar, action);
+    
+    this._rerender();
   },
 };
 
-export const addPostActionCreator = () => {
-  return {
-    type: ADD_POST,
-  };
-};
-
-export const addDialogMessageCreator = () => {
-  return {
-    type: ADD_DIALOG_MESSAGE,
-  };
-};
-
-export const changeNewPostTextActionCreator = (text) => {
-  return {
-    type: CHANGE_NEW_POS_TEXT,
-    newText: text,
-  };
-};
-export const changeNewDialogMessageActionCreator = (text) => {
-  return {
-    type: CHANGE_NEW_DIALOG_MESSAGE,
-    newMessage: text
-  }
-};
 
 export default store;
