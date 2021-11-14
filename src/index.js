@@ -5,24 +5,27 @@ import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import store from "./components/redux/redux-store";
+import { Provider } from 'react-redux';
 
 
-const rerenderApp = (state) => {
+// const rerenderApp = (state) => {
   ReactDOM.render(
     <BrowserRouter>
-      <App state={state} dispatch={store.dispatch.bind(store)}  store={store}/>
+    <Provider store={store}>
+      <App />
+      </Provider>
     </BrowserRouter>,
     document.getElementById('root')
   );
-};
+// };
 
-rerenderApp(store.getState());
+// rerenderApp(store.getState());
 
-store.subscribe(() => {
-  let state = store.getState();
-  // console.log(state);
-  rerenderApp(state);
-});
+// store.subscribe(() => {
+//   let state = store.getState();
+//   // console.log(state);
+//   rerenderApp(state);
+// });
 
 
 

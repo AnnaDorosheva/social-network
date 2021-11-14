@@ -49,14 +49,22 @@ const dialogReduser = (state = initialState, action) => {
           id: 4,
           message: state.newDialogMessage,
         };
-        state.dialogUserMessages.push(newDialogItem);
-        state.newDialogMessage = "";
-       
-        return state;
-      case CHANGE_NEW_DIALOG_MESSAGE:
-        state.newDialogMessage = action.newMessage;
+        const stateCopy = {
+          ...state,
+        newDialogMessage: "",
+        dialogUserMessages: [...state.dialogUserMessages, newDialogItem]
+        };
+ 
+        return stateCopy;
+
+      case CHANGE_NEW_DIALOG_MESSAGE: {
+        const stateCopy = {
+          ...state,
+        newDialogMessage: action.newMessage
+        };
      
-        return state;
+        return stateCopy;
+      }
       default:
         return state;
     }

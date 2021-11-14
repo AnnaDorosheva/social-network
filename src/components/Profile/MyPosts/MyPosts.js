@@ -1,22 +1,19 @@
 import React from 'react';
 import s from "./MyPosts.module.css";
 import Post from './Post/Post';
-import {changeNewPostTextActionCreator, addPostActionCreator } from "../../redux/profile-reduser";
 
 const MyPosts = (props) => {
 
-  const postsArr = props.posts.map(post => <Post {...post}/>)
+  const postsArr = props.posts.map(post => <Post key={post.id} {...post}/>)
 
   const textarea = React.createRef();
 
   const handlAddPost = () => {
-const action = addPostActionCreator();
-props.dispatch( action );
+    props.addPost()
   }
  const handleChange = () => {
  let text = textarea.current.value;
-const action = changeNewPostTextActionCreator( text )
-props.dispatch( action );
+ props.updateNewPostText(text);
   }
 
   return (

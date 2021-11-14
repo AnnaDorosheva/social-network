@@ -3,8 +3,9 @@ import s from "./App.module.css";
 import Heder from "../Header/Header";
 import Navbar from '../Navbar/Navbar';
 import Profile from '../Profile/Profile';
-import Dialogs from '../Dialogs/Dialogs';
 import { Route } from 'react-router-dom';
+import DialogsContainer from '../Dialogs/DialogsContainer';
+import UsersContainer from '../Users/UsersContainer';
 
 const App = (props) => {
 
@@ -16,8 +17,9 @@ const App = (props) => {
       <div className={s.body}>
         <Navbar/>
         <section className={s.profilePage}>
-        <Route path="/profile" render= { () => <Profile profilePageState={props.state.profileReduser} dispatch={props.dispatch}/> } />
-        <Route path="/dialogs" render= { () => <Dialogs state={props.state.dialogReduser}  dispatch={props.dispatch}/> } />
+        <Route path="/profile" render= { () => <Profile store={props.store}/> } />
+        <Route path="/dialogs" render= { () => <DialogsContainer store={props.store}/> } />
+        <Route path="/users" render= { () => <UsersContainer/>} />
         </section>
       </div>
     </div>

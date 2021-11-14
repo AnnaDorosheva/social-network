@@ -2,23 +2,24 @@ import React from 'react';
 import DialogItem from './DialogItem/DialogItem';
 import s from "./Dialogs.module.css";
 import DialogText from './DialogText/DialogText';
-import {addDialogMessageCreator, changeNewDialogMessageActionCreator} from "../redux/dialog-reduser";
+
 
 const Dialogs = (props) => {
 
-  const dialogsNames = props.state.dialogsUsers.map((user) => ( <DialogItem {...user}/>));
-  const dialogsMessages = props.state.dialogUserMessages.map( m => < DialogText {...m}/>);
+  const state = props.state.dialogReduser;
+
+  const dialogsNames = state.dialogsUsers.map((user) => ( <DialogItem key={user.id} {...user}/>));
+  const dialogsMessages = state.dialogUserMessages.map( m => < DialogText key={m.id} {...m}/>);
   
   const textarea = React.createRef();
 
   const handleAddText = () => {
-    const action = addDialogMessageCreator()
-    props.dispatch( action )
+    props.addDialogMessage()
+    
   };
   const handleChange = () => {
     const text = textarea.current.value;
-    const action = changeNewDialogMessageActionCreator(text);
-    props.dispatch( action );
+    props.changeNewDialogMessage(text);
   }
 
   return (
@@ -33,7 +34,7 @@ const Dialogs = (props) => {
 {dialogsMessages }
       </ul>
       <div className={s.textarea}>
-      <textarea ref={textarea} value={props.state.newDialogMessage} onChange={handleChange} placeholder="Enter yor message..."></textarea>
+      <textarea ref={textarea} value={state.newDialogMessage} onChange={handleChange} placeholder="Enter yor message..."></textarea>
       <button onClick={handleAddText} type="submit">Add message</button>
       </div>
     

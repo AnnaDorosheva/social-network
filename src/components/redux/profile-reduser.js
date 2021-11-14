@@ -14,22 +14,30 @@ const initialState = {
 
 const profileReduser = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_POST:
+    case ADD_POST: {
+      
       const newPost = {
         id: 6,
         message: state.newPostText,
+
         liksCount: 3,
       };
-      state.posts.push(newPost);
-      state.newPostText = "";
+      const stateCopy = {
+        ...state,
+      posts: [...state.posts, newPost],
+      newPostText: ""
+      };
 
-      return state;
-  
-    case CHANGE_NEW_POS_TEXT:
-      state.newPostText = action.newText;
+      return stateCopy;
+    }
+    case CHANGE_NEW_POS_TEXT: {
+      const stateCopy = {
+        ...state,
+      newPostText: action.newText
+      }
     
-      return state;
-  
+      return stateCopy;
+    }
     default:
       return state;
   }
