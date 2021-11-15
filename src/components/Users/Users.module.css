@@ -1,5 +1,5 @@
 .container {
   display: flex;
-  min-width: 80px;
+  justify-content: space-between;
   flex-wrap: wrap;
 }

@@ -2,13 +2,15 @@ import React from 'react';
 import s from "./User.module.css";
 
 const User = (props) => {
+  console.log("UUU", props)
   return (
     <div className={s.container}>
-      <img className={s.avatar} src="https://www.blast.hk/attachments/64804/" alt="avatar" />
+      <img className={s.avatar} src={props.avatar} alt="avatar" />
       <h2>{props.name}</h2>
       <p>{props.userInfo.country}{props.userInfo.town}</p>
       <p>{props.userAbout}</p>
-      <button type="button">Follow</button>
+      {props.follow ? 
+      <button type="button" onClick={props.handlUnfollow}>Unfollow</button> : <button type="button" onClick={props.handFollow}>Follow</button>}
     </div>
   )
 };
