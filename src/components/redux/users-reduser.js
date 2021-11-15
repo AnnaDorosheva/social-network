@@ -18,13 +18,13 @@ const usersReduser = (state = initialState, action) => {
     case FOLLOW: {
       return {
         ...state,
-        users: [...state.users.map(user => user.id === action.userId ? {...user, follow: true} : {...user})]
+        users: [...state.users.map(user => user.id === action.userId ? {...user, followed: true} : {...user})]
       }
     }
     case UNFOLLOW: {
       return {
         ...state,
-        users: [...state.users.map(user => user.id === action.userId ? {...user, follow: false} : {...user})]
+        users: [...state.users.map(user => user.id === action.userId ? {...user, followed: false} : {...user})]
       }
     }
     case SET_USERS :

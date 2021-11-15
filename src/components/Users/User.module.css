@@ -1,5 +1,6 @@
 .avatar {
   width: 50px;
+  border-radius: 15%;
 }
 .container {
   display: flex;
