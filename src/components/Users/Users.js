@@ -1,15 +1,7 @@
-import React from "react";
+import React, { Component } from "react";
 import User from "./User";
 import s from "./Users.module.css";
 import * as axios from "axios";
-
-const key = "0ec7d629-f7d8-44fc-9873-deeb234bf714";
-// headers: {
-//   'API-KEY': '0ec7d629-f7d8-44fc-9873-deeb234bf714'
-// }
-// BASE URL: https://social-network.samuraijs.com/api/1.0/
-// https://social-network.samuraijs.com/api/1.0/users
-
 // props.setUsers(
 //   [
 //     { id: 1, name: "Dima", userAbout: "I am cool!", avatar: "https://dthezntil550i.cloudfront.net/kg/latest/kg1802132010216500004834729/1280_960/557d644f-12f3-49e1-bb66-23c16400540d.png", userInfo: {country: "Ukraine", town: "Kiev"}, follow: true },
@@ -20,23 +12,70 @@ const key = "0ec7d629-f7d8-44fc-9873-deeb234bf714";
 //   ]
 // )
 
-const Users = (props) => {
-
-  const getUsers = () => {
-  if(props.users.length === 0) {
-axios.get("https://social-network.samuraijs.com/api/1.0/users")
-.then(response => props.setUsers(response.data.items))
+class Users extends Component {
+  componentDidMount() {
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.activePage}&count=${this.props.pageSize}`
+      )
+      .then((response) => {
+        this.props.setUsers(response.data.items)
+        this.props.setTotalUsers(response.data.totalCount)
+      });
   }
-};
 
-const users = props.users.map(user => <User key={user.id} {...user} handFollow={() => props.handlFollow(user.id)} handlUnfollow={() => props.handlUnfollow(user.id)}/>)
-  return (
-<div>
-  <button type="button" onClick={getUsers}>Get Users</button>
-  <div className={s.container}>{users}</div>
-<button type="button">More users</button>
-</div>
-  )
-};
+  handlePageChange = (p) => {
+    this.props.setActivePage(p);
+    axios
+    .get(
+      `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`
+    )
+    .then((response) => this.props.setUsers(response.data.items));
+  };
+
+  render() {
+    const {
+      users,
+      handlFollow,
+      handlUnfollow,
+      totalUsersCount,
+      pageSize,
+      activePage,
+    } = this.props;
+
+    const pagesCount = Math.ceil(totalUsersCount / pageSize);
+
+    const pages = [];
+    for (let i = 1; pagesCount >= i; i += 1) {
+      pages.push(i);
+    }
+
+    return (
+      <div>
+        <ul className={s.pagesNumbers}>
+          {pages.slice(1, 20).map((p) => (
+            <li
+            className={activePage === p ? s.selected : s.numberPage}
+              onClick={(e) =>  {this.handlePageChange(p)}}
+            >
+              {p}
+            </li>
+          ))}
+        </ul>
+        <div className={s.container}>
+          {users.map((user) => (
+            <User
+              key={user.id}
+              {...user}
+              handlFollow={() => handlFollow(user.id)}
+              handlUnfollow={() => handlUnfollow(user.id)}
+            />
+          ))}
+        </div>
+        <button type="button">More users</button>
+      </div>
+    );
+  }
+}
 
 export default Users;
