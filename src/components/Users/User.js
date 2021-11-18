@@ -1,9 +1,9 @@
 import React from 'react';
 import s from "./User.module.css";
-import userAvatar from "../../img/avatar.jpeg";
+import userAvatar from "../../helpers/img/avatar.jpeg";
 
 const User = (props) => {
-  console.log("UUU", props)
+  // console.log("UUU", props)
   return (
     <div className={s.container}>
       <img className={s.avatar} src={props.photos.small === null ? userAvatar : props.photos.small } alt="avatar" />
