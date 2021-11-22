@@ -8,22 +8,17 @@ import {
   setCurrentPageActionReduser,
   setTotalUsersActionReduser,
   isLoadingActionCreator
-} from "../redux/users-reduser";
+} from "../../redux/users-reduser";
 import * as axios from "axios";
 import LoaderSpinner from "../../helpers/LoaderSpinner/LoaderSpinner";
+import { getUsers } from "../../api/api";
 
 class UsersAPIComponent extends Component {
   componentDidMount() {
     this.props.setLoading(true);
 
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.activePage}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
+
+      getUsers(this.props.activePage , this.props.pageSize).then((response) => {
         this.props.setUsers(response.data.items);
         this.props.setLoading(false);
         this.props.setTotalUsers(response.data.totalCount);

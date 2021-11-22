@@ -1,7 +1,6 @@
 
 import { connect } from 'react-redux';
-
-import {changeNewPostTextActionCreator, addPostActionCreator } from "../../redux/profile-reduser";
+import {changeNewPostTextActionCreator, addPostActionCreator } from "../../../redux/profile-reduser";
 import MyPosts from './MyPosts';
 
 // const MyPostsContainer = (props) => {

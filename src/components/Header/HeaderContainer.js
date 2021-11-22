@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import axios from 'axios';
 import { connect } from "react-redux";
-import {setUserLoginActionCreator} from "./../redux/auth-reduser";
+import {setUserLoginActionCreator} from "../../redux/auth-reduser";
 
 class HeaderContainer extends Component {
 

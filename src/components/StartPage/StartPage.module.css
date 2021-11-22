@@ -1,0 +1,19 @@
+.startpfoto {
+  /* display: flex; */
+  max-width: 100%;
+}
+.startImg {
+ position: relative;
+}
+.welcome {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: rgb(212, 224, 226);
+  margin: 0 auto;
+  width: 90%;
+  text-transform: uppercase;
+  text-align: center;
+}

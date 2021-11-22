@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   addDialogMessageCreator,
   changeNewDialogMessageActionCreator,
-} from "../redux/dialog-reduser";
+} from "../../redux/dialog-reduser";
 import Dialogs from "./Dialogs";
 
 // const DialogsContainer = (props) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Profile from '../Profile';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import {setUserProfileActionCreator} from '../../redux/profile-reduser';
+import {setUserProfileActionCreator} from '../../../redux/profile-reduser';
 import { withRouter } from 'react-router';
 
  class ProfileContainer extends Component {
