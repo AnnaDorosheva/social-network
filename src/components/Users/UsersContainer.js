@@ -14,11 +14,14 @@ import LoaderSpinner from "../../helpers/LoaderSpinner/LoaderSpinner";
 
 class UsersAPIComponent extends Component {
   componentDidMount() {
-    this.props.setLoading(true)
+    this.props.setLoading(true);
 
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.activePage}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.activePage}&count=${this.props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
@@ -29,12 +32,13 @@ class UsersAPIComponent extends Component {
 
   handlePageChange = (e, p) => {
     this.props.setActivePage(p);
-    console.log(e.target);
     e.target.style = "font-weight: 700;";
     this.props.setLoading(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, { 
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
@@ -61,27 +65,34 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handlFollow: (id) => {
-      dispatch(followActionCreator(id));
-    },
-    handlUnfollow: (id) => {
-      dispatch(unfollowActionCreator(id));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersActionCreator(users));
-    },
-    setActivePage: (pageNum) => {
-      dispatch(setCurrentPageActionReduser(pageNum));
-    },
-    setTotalUsers: (usersTotal) => {
-      dispatch(setTotalUsersActionReduser(usersTotal));
-    },
-    setLoading: (isLoadingActive) => {
-      dispatch(isLoadingActionCreator(isLoadingActive))
-    }
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     handlFollow: (id) => {
+//       dispatch(followActionCreator(id));
+//     },
+//     handlUnfollow: (id) => {
+//       dispatch(unfollowActionCreator(id));
+//     },
+//     setUsers: (users) => {
+//       dispatch(setUsersActionCreator(users));
+//     },
+//     setActivePage: (pageNum) => {
+//       dispatch(setCurrentPageActionReduser(pageNum));
+//     },
+//     setTotalUsers: (usersTotal) => {
+//       dispatch(setTotalUsersActionReduser(usersTotal));
+//     },
+//     setLoading: (isLoadingActive) => {
+//       dispatch(isLoadingActionCreator(isLoadingActive))
+//     }
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+export default connect(mapStateToProps, {
+  handlFollow: followActionCreator,
+  handlUnfollow: unfollowActionCreator,
+  setUsers: setUsersActionCreator,
+  setActivePage: setCurrentPageActionReduser,
+  setTotalUsers: setTotalUsersActionReduser,
+  setLoading: isLoadingActionCreator
+})(UsersAPIComponent);

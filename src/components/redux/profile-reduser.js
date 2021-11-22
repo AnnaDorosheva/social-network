@@ -1,21 +1,20 @@
-
-
 const ADD_POST = "ADD_POST";
 const CHANGE_NEW_POS_TEXT = "CHANGE_NEW_POS_TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 const initialState = {
-    posts: [
-      { id: 1, message: "Hey averywone!", liksCount: 4 },
-      { id: 2, message: "Perfect day today...", liksCount: 4 },
-      { id: 3, message: "O yes!", liksCount: 4 },
-    ],
-    newPostText: "",
+  posts: [
+    { id: 1, message: "Hey averywone!", liksCount: 4 },
+    { id: 2, message: "Perfect day today...", liksCount: 4 },
+    { id: 3, message: "O yes!", liksCount: 4 },
+  ],
+  newPostText: "",
+  userProfile: null
 };
 
 const profileReduser = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST: {
-      
       const newPost = {
         id: 6,
         message: state.newPostText,
@@ -24,8 +23,8 @@ const profileReduser = (state = initialState, action) => {
       };
       const stateCopy = {
         ...state,
-      posts: [...state.posts, newPost],
-      newPostText: ""
+        posts: [...state.posts, newPost],
+        newPostText: "",
       };
 
       return stateCopy;
@@ -33,10 +32,16 @@ const profileReduser = (state = initialState, action) => {
     case CHANGE_NEW_POS_TEXT: {
       const stateCopy = {
         ...state,
-      newPostText: action.newText
-      }
-    
+        newPostText: action.newText,
+      };
+
       return stateCopy;
+    }
+    case SET_USER_PROFILE: {
+      return {
+        ...state,
+        userProfile: action.userProfile,
+      };
     }
     default:
       return state;
@@ -54,5 +59,11 @@ export const changeNewPostTextActionCreator = (text) => {
   return {
     type: CHANGE_NEW_POS_TEXT,
     newText: text,
+  };
+};
+export const setUserProfileActionCreator = (userProfile) => {
+  return {
+    type: SET_USER_PROFILE,
+    userProfile,
   };
 };
