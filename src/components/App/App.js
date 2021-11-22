@@ -15,7 +15,7 @@ const App = (props) => {
       <div className={s.body}>
         <Navbar />
         <section className={s.profilePage}>
-          <Route path="/social-network" exact component={StartPage} />
+          <Route path="/social-network/" exact component={StartPage} />
           <Route
             path="/profile/:userId?"
             render={() => <ProfileContainer store={props.store} />}

@@ -13,15 +13,16 @@ import * as axios from "axios";
 import LoaderSpinner from "../../helpers/LoaderSpinner/LoaderSpinner";
 import { getUsers } from "../../api/api";
 
+
+
 class UsersAPIComponent extends Component {
   componentDidMount() {
     this.props.setLoading(true);
 
-
-      getUsers(this.props.activePage , this.props.pageSize).then((response) => {
-        this.props.setUsers(response.data.items);
+      getUsers(this.props.activePage , this.props.pageSize).then((data) => {
+        this.props.setUsers(data.items);
         this.props.setLoading(false);
-        this.props.setTotalUsers(response.data.totalCount);
+        this.props.setTotalUsers(data.totalCount);
       });
   }
 
@@ -29,14 +30,10 @@ class UsersAPIComponent extends Component {
     this.props.setActivePage(p);
     e.target.style = "font-weight: 700;";
     this.props.setLoading(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, { 
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items);
+  
+      getUsers(p, this.props.pageSize)
+      .then((data) => {
+        this.props.setUsers(data.items);
         this.props.setLoading(false);
       });
   };
