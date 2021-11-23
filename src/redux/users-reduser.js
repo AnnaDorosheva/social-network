@@ -4,6 +4,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const IS_LOADING = "IZ_LOADING";
+const TOGGLE_IN_FOLLOWING_PROGRESS = "TOGGLE_IN_FOLLOWING_PROGRESS";
 
 const initialState = {
   users: [],
@@ -11,6 +12,7 @@ const initialState = {
   totalUsersCount: 43,
   activePage: 1,
   isLoading: true,
+  followingInProgress: [],
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -54,11 +56,18 @@ const usersReduser = (state = initialState, action) => {
         ...state,
         totalUsersCount: action.totalUsersCount,
       };
-      case IS_LOADING:
-        return {
-          ...state,
-          isLoading: action.isLoading
-        };
+    case IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.isLoading,
+      };
+    case TOGGLE_IN_FOLLOWING_PROGRESS:
+      return {
+        ...state,
+        followingInProgress: action.followingInProgress
+          ? [...state.followingInProgress, action.id]
+          : state.followingInProgress.filter((id) => id !== action.id),
+      };
     default:
       return state;
   }
@@ -103,6 +112,14 @@ export const setTotalUsersActionReduser = (totalUsersCount) => {
 export const isLoadingActionCreator = (isLoadingActive) => {
   return {
     type: IS_LOADING,
-    isLoading: isLoadingActive
+    isLoading: isLoadingActive,
+  };
+};
+
+export const isFollowingInProgressActionCreator = (isFatching, id) => {
+  return {
+    type: TOGGLE_IN_FOLLOWING_PROGRESS,
+    followingInProgress: isFatching,
+    id
   };
 };

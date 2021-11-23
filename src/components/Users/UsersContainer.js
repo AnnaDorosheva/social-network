@@ -7,19 +7,19 @@ import {
   setUsersActionCreator,
   setCurrentPageActionReduser,
   setTotalUsersActionReduser,
-  isLoadingActionCreator
+  isLoadingActionCreator,
+  isFollowingInProgressActionCreator
 } from "../../redux/users-reduser";
-import * as axios from "axios";
 import LoaderSpinner from "../../helpers/LoaderSpinner/LoaderSpinner";
-import { getUsers } from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 
 
-class UsersAPIComponent extends Component {
+class UsersContainer extends Component {
   componentDidMount() {
     this.props.setLoading(true);
 
-      getUsers(this.props.activePage , this.props.pageSize).then((data) => {
+      usersAPI.getUsers(this.props.activePage , this.props.pageSize).then((data) => {
         this.props.setUsers(data.items);
         this.props.setLoading(false);
         this.props.setTotalUsers(data.totalCount);
@@ -31,7 +31,7 @@ class UsersAPIComponent extends Component {
     e.target.style = "font-weight: 700;";
     this.props.setLoading(true);
   
-      getUsers(p, this.props.pageSize)
+      usersAPI.getUsers(p, this.props.pageSize)
       .then((data) => {
         this.props.setUsers(data.items);
         this.props.setLoading(false);
@@ -39,6 +39,7 @@ class UsersAPIComponent extends Component {
   };
 
   render() {
+    console.log(this.props)
     return (
       <div>
         {this.props.isLoading ? <LoaderSpinner /> : null}
@@ -54,6 +55,7 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersReduser.totalUsersCount,
     activePage: state.usersReduser.activePage,
     isLoading: state.usersReduser.isLoading,
+    isFollovingToggle: state.usersReduser.followingInProgress
   };
 };
 
@@ -86,5 +88,6 @@ export default connect(mapStateToProps, {
   setUsers: setUsersActionCreator,
   setActivePage: setCurrentPageActionReduser,
   setTotalUsers: setTotalUsersActionReduser,
-  setLoading: isLoadingActionCreator
-})(UsersAPIComponent);
+  setLoading: isLoadingActionCreator,
+  toggleFolloving: isFollowingInProgressActionCreator
+})(UsersContainer);

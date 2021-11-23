@@ -32,7 +32,6 @@ class HeaderContainer extends Component {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
 isAuth: state.authReduser.isAuth,
 login: state.authReduser.login

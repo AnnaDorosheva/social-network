@@ -10,8 +10,12 @@ const Users = ({
   pageSize,
   activePage,
   handlePageChange,
-  isloading
+  toggleFolloving,
+  isFollovingToggle,
+  isloading,
+  
 }) => {
+  console.log("ppp", isFollovingToggle)
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const pages = [];
@@ -39,8 +43,10 @@ const Users = ({
           <User
             key={user.id}
             {...user}
+            isFollovingToggle={isFollovingToggle}
             handlFollow={() => handlFollow(user.id)}
             handlUnfollow={() => handlUnfollow(user.id)}
+            toggleFolloving={toggleFolloving}
           />
         ))}
       </div>
