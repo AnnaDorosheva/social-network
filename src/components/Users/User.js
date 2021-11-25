@@ -2,7 +2,7 @@ import React from "react";
 import s from "./User.module.css";
 import userAvatar from "../../helpers/img/avatar.jpeg";
 import { NavLink } from "react-router-dom";
-import {usersAPI} from "../../api/api";
+
 
 const User = (props) => {
   // console.log("UUU", props);
@@ -17,32 +17,37 @@ const User = (props) => {
       </NavLink>
       <h2 className={s.name}>{props.name}</h2>
       {props.followed ? (
-        <button disabled={props.isFollovingToggle.some(id => id === props.id)} type="button"   onClick={() => {
-          props.toggleFolloving(true, props.id);
-    usersAPI.unfollowUser(props.id)
-            .then((data) => {
-              if (data.resultCode === 0) {
-                props.handlUnfollow();
-              }
-              props.toggleFolloving(false, props.id);
-            });
-        }}>
+        <button
+          disabled={props.isFollovingToggle.some((id) => id === props.id)}
+          type="button"
+          onClick={() => {
+            props.follow(props.id)
+            // props.toggleFolloving(true, props.id);
+            // usersAPI.unfollowUser(props.id).then((data) => {
+            //   if (data.resultCode === 0) {
+            //     props.handlUnfollow();
+            //   }
+            //   props.toggleFolloving(false, props.id);
+            // });
+          }}
+        >
           Unfollow
         </button>
       ) : (
         <button
-        disabled={props.isFollovingToggle.some(id => id === props.id)} 
+          disabled={props.isFollovingToggle.some((id) => id === props.id)}
           type="button"
           onClick={() => {
-            props.toggleFolloving(true, props.id);
-            usersAPI
-              .followUser(props.id)
-              .then((data) => {
-                if (data.resultCode === 0) {
-                  props.handlFollow();
-                }
-                props.toggleFolloving(false, props.id);
-              });
+            props.unfollow(props.id)
+            // props.toggleFolloving(true, props.id);
+            // usersAPI
+            //   .followUser(props.id)
+            //   .then((data) => {
+            //     if (data.resultCode === 0) {
+            //       props.handlFollow();
+            //     }
+            //     props.toggleFolloving(false, props.id);
+            //   });
           }}
         >
           Follow

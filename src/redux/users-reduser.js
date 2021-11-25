@@ -1,3 +1,5 @@
+import { usersAPI } from "../api";
+
 const SET_USERS = "SET_USERS";
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -120,6 +122,42 @@ export const isFollowingInProgressActionCreator = (isFatching, id) => {
   return {
     type: TOGGLE_IN_FOLLOWING_PROGRESS,
     followingInProgress: isFatching,
-    id
+    id,
+  };
+};
+
+export const getUsrsThankCreator = (activePage, pageSize) => {
+  return (dispatch) => {
+    dispatch(isLoadingActionCreator(true));
+
+    usersAPI.getUsers(activePage, pageSize).then((data) => {
+      dispatch(setUsersActionCreator(data.items));
+      dispatch(isLoadingActionCreator(false));
+      dispatch(setTotalUsersActionReduser(data.totalCount));
+    });
+  };
+};
+
+export const followThankCreator = (id) => {
+  return (dispatch) => {
+    dispatch(isFollowingInProgressActionCreator(true, id));
+    usersAPI.followUser(id).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(followActionCreator(id));
+      }
+      dispatch(isFollowingInProgressActionCreator(false, id));
+    });
+  };
+};
+
+export const unfollowThankCreator = (id) => {
+  return (dispatch) => {
+    dispatch(isFollowingInProgressActionCreator(true, id));
+    usersAPI.unfollowUser(id).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(unfollowActionCreator(id));
+      }
+      dispatch(isFollowingInProgressActionCreator(false, id));
+    });
   };
 };

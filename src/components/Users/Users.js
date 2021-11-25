@@ -4,8 +4,8 @@ import s from "./Users.module.css";
 
 const Users = ({
   users,
-  handlFollow,
-  handlUnfollow,
+  follow,
+  unfollow,
   totalUsersCount,
   pageSize,
   activePage,
@@ -15,7 +15,7 @@ const Users = ({
   isloading,
   
 }) => {
-  console.log("ppp", isFollovingToggle)
+  // console.log("ppp", props)
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const pages = [];
@@ -44,9 +44,11 @@ const Users = ({
             key={user.id}
             {...user}
             isFollovingToggle={isFollovingToggle}
-            handlFollow={() => handlFollow(user.id)}
-            handlUnfollow={() => handlUnfollow(user.id)}
+            // handlFollow={() => handlFollow(user.id)}
+            // handlUnfollow={() => handlUnfollow(user.id)}
             toggleFolloving={toggleFolloving}
+            follow={follow}
+            unfollow={unfollow}
           />
         ))}
       </div>

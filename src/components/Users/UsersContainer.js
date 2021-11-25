@@ -2,44 +2,33 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-  followActionCreator,
-  unfollowActionCreator,
-  setUsersActionCreator,
   setCurrentPageActionReduser,
-  setTotalUsersActionReduser,
-  isLoadingActionCreator,
-  isFollowingInProgressActionCreator
+  getUsrsThankCreator,
+  followThankCreator,
+  unfollowThankCreator
 } from "../../redux/users-reduser";
 import LoaderSpinner from "../../helpers/LoaderSpinner/LoaderSpinner";
-import {usersAPI} from "../../api/api";
+
 
 
 
 class UsersContainer extends Component {
   componentDidMount() {
-    this.props.setLoading(true);
 
-      usersAPI.getUsers(this.props.activePage , this.props.pageSize).then((data) => {
-        this.props.setUsers(data.items);
-        this.props.setLoading(false);
-        this.props.setTotalUsers(data.totalCount);
-      });
+    this.props.getUsers(this.props.activePage, this.props.pageSize)
+
   }
 
   handlePageChange = (e, p) => {
     this.props.setActivePage(p);
     e.target.style = "font-weight: 700;";
-    this.props.setLoading(true);
-  
-      usersAPI.getUsers(p, this.props.pageSize)
-      .then((data) => {
-        this.props.setUsers(data.items);
-        this.props.setLoading(false);
-      });
+
+    this.props.getUsers(p, this.props.pageSize)
+
   };
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         {this.props.isLoading ? <LoaderSpinner /> : null}
@@ -55,7 +44,7 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersReduser.totalUsersCount,
     activePage: state.usersReduser.activePage,
     isLoading: state.usersReduser.isLoading,
-    isFollovingToggle: state.usersReduser.followingInProgress
+    isFollovingToggle: state.usersReduser.followingInProgress,
   };
 };
 
@@ -83,11 +72,8 @@ const mapStateToProps = (state) => {
 // };
 
 export default connect(mapStateToProps, {
-  handlFollow: followActionCreator,
-  handlUnfollow: unfollowActionCreator,
-  setUsers: setUsersActionCreator,
   setActivePage: setCurrentPageActionReduser,
-  setTotalUsers: setTotalUsersActionReduser,
-  setLoading: isLoadingActionCreator,
-  toggleFolloving: isFollowingInProgressActionCreator
+ getUsers: getUsrsThankCreator,
+follow: followThankCreator,
+unfollow: unfollowThankCreator
 })(UsersContainer);
