@@ -6,6 +6,7 @@ import { isLoadingActionCreator } from "../../../redux/users-reduser";
 import { withRouter } from "react-router";
 import LoaderSpinner from "../../../helpers/LoaderSpinner/LoaderSpinner";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 class ProfileContainer extends Component {
   componentDidMount() {
@@ -30,15 +31,21 @@ class ProfileContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     userProfile: state.profileReduser.userProfile,
-    isLoading: state.usersReduser.isLoading,
-    isAuth: state.authReduser.isAuth
+    isLoading: state.usersReduser.isLoading
   };
 };
 
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 
-const WithRouturerProfileContainer = withRouter(AuthRedirectComponent);
-export default connect(mapStateToProps, {
-  setLoading: isLoadingActionCreator,
-  getUserProfile: getUserProfileThunk
-})(WithRouturerProfileContainer);
+// export default connect(mapStateToProps, {
+//   setLoading: isLoadingActionCreator,
+//   getUserProfile: getUserProfileThunk
+// })(WithRouturerProfileContainer);
+
+export default compose(
+  connect(mapStateToProps, {
+    setLoading: isLoadingActionCreator,
+    getUserProfile: getUserProfileThunk
+  }),
+  withRouter,
+  withAuthRedirect
+)(ProfileContainer);
