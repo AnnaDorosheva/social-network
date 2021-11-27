@@ -27,8 +27,18 @@ export const usersAPI = {
     .post(
       `follow/${id}`, null
     ).then(response => response.data)
+  },
+  getProfile(id) {
+    return instance
+    .get(`profile/` + id).then(response => response.data)
   }
 };
+
+export const authAPI = {
+me() {
+  return instance.get(`auth/me`).then(response => response.data)
+}
+}
 
 // export const getUsers = (activePage = 1, pageSize = 5) => {
 //   return instsnce

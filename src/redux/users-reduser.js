@@ -10,7 +10,7 @@ const TOGGLE_IN_FOLLOWING_PROGRESS = "TOGGLE_IN_FOLLOWING_PROGRESS";
 
 const initialState = {
   users: [],
-  pageSize: 20,
+  pageSize: 10,
   totalUsersCount: 43,
   activePage: 1,
   isLoading: true,
@@ -126,7 +126,7 @@ export const isFollowingInProgressActionCreator = (isFatching, id) => {
   };
 };
 
-export const getUsrsThankCreator = (activePage, pageSize) => {
+export const getUsersThunkCreator = (activePage, pageSize) => {
   return (dispatch) => {
     dispatch(isLoadingActionCreator(true));
 
@@ -138,7 +138,7 @@ export const getUsrsThankCreator = (activePage, pageSize) => {
   };
 };
 
-export const followThankCreator = (id) => {
+export const followThunkCreator = (id) => {
   return (dispatch) => {
     dispatch(isFollowingInProgressActionCreator(true, id));
     usersAPI.followUser(id).then((data) => {
@@ -150,7 +150,7 @@ export const followThankCreator = (id) => {
   };
 };
 
-export const unfollowThankCreator = (id) => {
+export const unfollowThunkCreator = (id) => {
   return (dispatch) => {
     dispatch(isFollowingInProgressActionCreator(true, id));
     usersAPI.unfollowUser(id).then((data) => {

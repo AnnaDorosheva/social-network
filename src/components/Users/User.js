@@ -20,8 +20,8 @@ const User = (props) => {
         <button
           disabled={props.isFollovingToggle.some((id) => id === props.id)}
           type="button"
-          onClick={() => {
-            props.follow(props.id)
+          onClick={()=>  props.unfollow(props.id)}
+           
             // props.toggleFolloving(true, props.id);
             // usersAPI.unfollowUser(props.id).then((data) => {
             //   if (data.resultCode === 0) {
@@ -29,7 +29,7 @@ const User = (props) => {
             //   }
             //   props.toggleFolloving(false, props.id);
             // });
-          }}
+      
         >
           Unfollow
         </button>
@@ -37,8 +37,7 @@ const User = (props) => {
         <button
           disabled={props.isFollovingToggle.some((id) => id === props.id)}
           type="button"
-          onClick={() => {
-            props.unfollow(props.id)
+          onClick={()=>  props.follow(props.id)}
             // props.toggleFolloving(true, props.id);
             // usersAPI
             //   .followUser(props.id)
@@ -48,7 +47,7 @@ const User = (props) => {
             //     }
             //     props.toggleFolloving(false, props.id);
             //   });
-          }}
+          
         >
           Follow
         </button>

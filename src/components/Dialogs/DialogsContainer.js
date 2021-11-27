@@ -5,6 +5,7 @@ import {
   changeNewDialogMessageActionCreator,
 } from "../../redux/dialog-reduser";
 import Dialogs from "./Dialogs";
+import withAuthRedirect from "../hoc/withAuthRedirect";
 
 // const DialogsContainer = (props) => {
 //   const state = props.store.getState();
@@ -22,9 +23,10 @@ import Dialogs from "./Dialogs";
 //    <Dialogs store={state} changeNewDialogMessage={handleChange} addDialogMessage={handleAddText} />
 //   )
 // };
-const MapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     state: state,
+    isAuth: state.authReduser.isAuth
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -38,6 +40,8 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const DialogsContainer = connect(MapStateToProps, mapDispatchToProps)(Dialogs);
+const AuthRedirectComponent = withAuthRedirect(Dialogs);
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default DialogsContainer;

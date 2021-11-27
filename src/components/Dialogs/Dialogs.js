@@ -22,6 +22,7 @@ const Dialogs = (props) => {
     props.changeNewDialogMessage(text);
   }
 
+
   return (
     <div className={s.dialogPage}>
       <ul className={s.dialogUsers}>

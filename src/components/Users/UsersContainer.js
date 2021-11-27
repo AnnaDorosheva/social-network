@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import Users from "./Users";
 import {
   setCurrentPageActionReduser,
-  getUsrsThankCreator,
-  followThankCreator,
-  unfollowThankCreator
+  getUsersThunkCreator,
+  followThunkCreator,
+  unfollowThunkCreator
 } from "../../redux/users-reduser";
 import LoaderSpinner from "../../helpers/LoaderSpinner/LoaderSpinner";
 
@@ -73,7 +73,7 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   setActivePage: setCurrentPageActionReduser,
- getUsers: getUsrsThankCreator,
-follow: followThankCreator,
-unfollow: unfollowThankCreator
+ getUsers: getUsersThunkCreator,
+follow: followThunkCreator,
+unfollow: unfollowThunkCreator
 })(UsersContainer);

@@ -6,7 +6,9 @@ import s from "./PrifileInfo.module.css";
 const ProfileInfo = ({userProfile}) => {
   if(!userProfile) {
     return <LoaderSpinner />
-  }
+  };
+ 
+
   return (
     <div className={s.profile}>
       <div className={s.avatar}>
