@@ -4,12 +4,12 @@ import s from "./Profile.module.css"
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
-  // console.log(props)
+  console.log(props)
   return (
     <div className={s.prolile}>
       <div className={s.containerImg} >
        </div>
-    <ProfileInfo userProfile={props.userProfile}/>
+    <ProfileInfo userStatus={props.status} updateStatus={props.updateStatus} userProfile={props.userProfile}/>
     <MyPostsContainer store={props.store} />
     
     </div>

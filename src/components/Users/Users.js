@@ -10,7 +10,6 @@ const Users = ({
   pageSize,
   activePage,
   handlePageChange,
-  toggleFolloving,
   isFollovingToggle,
 }) => {
   // console.log("ppp", props)
@@ -26,7 +25,7 @@ const Users = ({
     
       <ul className={s.pagesNumbers}>
         {pages.slice(0, 20).map((p) => (
-          <li
+          <li key={p}
             className={activePage === p ? s.selected : s.numberPage}
             onClick={(e) => {
               handlePageChange(e, p);
@@ -42,9 +41,6 @@ const Users = ({
             key={user.id}
             {...user}
             isFollovingToggle={isFollovingToggle}
-            // handlFollow={() => handlFollow(user.id)}
-            // handlUnfollow={() => handlUnfollow(user.id)}
-            // toggleFolloving={toggleFolloving}
             follow={follow}
             unfollow={unfollow}
           />

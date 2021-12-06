@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Profile from "../Profile";
 import { connect } from "react-redux";
-import { getUserProfileThunk } from "../../../redux/profile-reduser";
+import {
+  getUserProfileThunk,
+  getUserStatusThunk,
+  updateUserStatusThunk 
+} from "../../../redux/profile-reduser";
 import { isLoadingActionCreator } from "../../../redux/users-reduser";
 import { withRouter } from "react-router";
 import LoaderSpinner from "../../../helpers/LoaderSpinner/LoaderSpinner";
@@ -16,7 +20,8 @@ class ProfileContainer extends Component {
       userId = 2;
     }
 
-    this.props.getUserProfile(userId, this.props.setLoading );
+    this.props.getUserProfile(userId, this.props.setLoading);
+    this.props.getUserStatus(userId);
   }
   render() {
     return (
@@ -31,10 +36,10 @@ class ProfileContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     userProfile: state.profileReduser.userProfile,
-    isLoading: state.usersReduser.isLoading
+    isLoading: state.usersReduser.isLoading,
+    status: state.profileReduser.status,
   };
 };
-
 
 // export default connect(mapStateToProps, {
 //   setLoading: isLoadingActionCreator,
@@ -44,8 +49,10 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps, {
     setLoading: isLoadingActionCreator,
-    getUserProfile: getUserProfileThunk
+    getUserProfile: getUserProfileThunk,
+    getUserStatus: getUserStatusThunk,
+    updateStatus: updateUserStatusThunk 
   }),
   withRouter,
-  // withAuthRedirect
-)(ProfileContainer)
+  withAuthRedirect
+)(ProfileContainer);

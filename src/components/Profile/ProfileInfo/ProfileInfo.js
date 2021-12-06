@@ -2,8 +2,10 @@ import React from 'react';
 import LoaderSpinner from '../../../helpers/LoaderSpinner/LoaderSpinner';
 import avatarka from "../../../helpers/img/avatar.jpeg";
 import s from "./PrifileInfo.module.css";
+import ProfileStatus from './ProfileStatus';
 
-const ProfileInfo = ({userProfile}) => {
+const ProfileInfo = ({userProfile, userStatus, updateStatus}) => {
+  // console.log(userStatus)
   if(!userProfile) {
     return <LoaderSpinner />
   };
@@ -16,7 +18,7 @@ const ProfileInfo = ({userProfile}) => {
       </div>
       <div className={s.info}>
       <h2 className={s.name}>{userProfile.fullName}</h2>
-      <p>{userProfile.aboutMe}</p>
+      <ProfileStatus status={userStatus} updateStatus={updateStatus}/>
       <p>{userProfile.contacts.facebook}</p>
       <p>{userProfile.contacts.vk}</p>
       <p>{userProfile.contacts.facebook}</p>
