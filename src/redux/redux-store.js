@@ -5,6 +5,7 @@ import dialogReduser from "./dialog-reduser";
 import usersReduser from "./users-reduser";
 import authReduser from "./auth-reduser";
 import thunkMiddleware from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form';
 
 
 
@@ -13,7 +14,8 @@ sidebarReduser,
 profileReduser,
 dialogReduser,
 usersReduser,
-authReduser
+authReduser,
+form: formReducer
 });
 const store = createStore(redusers, applyMiddleware(thunkMiddleware));
 
