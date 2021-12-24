@@ -1,7 +1,6 @@
 
 
 const ADD_DIALOG_MESSAGE = "ADD_DIALOG_MESSAGE";
-const CHANGE_NEW_DIALOG_MESSAGE = "CHANGE_NEW_DIALOG_MESSAGE";
 
 const initialState = {
     dialogUserMessages: [
@@ -37,7 +36,6 @@ const initialState = {
       img: "https://cspromogame.ru//storage/upload_images/avatars/1299.jpg",
     },
   ],
-  newDialogMessage: "O",
 };
 
 
@@ -47,24 +45,15 @@ const dialogReduser = (state = initialState, action) => {
       case ADD_DIALOG_MESSAGE:
         const newDialogItem = {
           id: 4,
-          message: state.newDialogMessage,
+          message: action.newMessage,
         };
         const stateCopy = {
           ...state,
-        newDialogMessage: "",
         dialogUserMessages: [...state.dialogUserMessages, newDialogItem]
         };
  
         return stateCopy;
 
-      case CHANGE_NEW_DIALOG_MESSAGE: {
-        const stateCopy = {
-          ...state,
-        newDialogMessage: action.newMessage
-        };
-     
-        return stateCopy;
-      }
       default:
         return state;
     }
@@ -73,15 +62,9 @@ const dialogReduser = (state = initialState, action) => {
 
 export default dialogReduser;
 
-export const addDialogMessageCreator = () => {
+export const addDialogMessageCreator = (newMessage) => {
   return {
     type: ADD_DIALOG_MESSAGE,
+    newMessage
   };
-};
-
-export const changeNewDialogMessageActionCreator = (text) => {
-  return {
-    type: CHANGE_NEW_DIALOG_MESSAGE,
-    newMessage: text
-  }
 };

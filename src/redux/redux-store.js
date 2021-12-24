@@ -15,9 +15,9 @@ profileReduser,
 dialogReduser,
 usersReduser,
 authReduser,
-form: formReducer
+form: formReducer,
 });
 const store = createStore(redusers, applyMiddleware(thunkMiddleware));
 
-
+// console.log(store.getState().form)
 export default store;
