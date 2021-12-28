@@ -16,7 +16,7 @@ case SET_USER_LOGIN:
  return {
 ...state,
 ...action.data,
-isAuth: true
+// isAuth: true
   }
   default:
     return state;
@@ -25,13 +25,14 @@ isAuth: true
 
 export default authReduser;
 
-export const setUserLoginActionCreator = (userId, email, login) => {
+export const setUserLoginActionCreator = (userId, email, login, isAuth) => {
   return {
     type: SET_USER_LOGIN,
     data: {
       userId,
       email,
-      login
+      login,
+      isAuth
     }
   }
 };
@@ -41,8 +42,27 @@ export const getAuthUserDataThunk = () => (dispatch) => {
      
     if(data.resultCode === 0) {
       const {id, email, login } = data.data;
-      dispatch(setUserLoginActionCreator(id, email, login));
+      dispatch(setUserLoginActionCreator(id, email, login, true));
     }
    
-  });
-}
+  })
+};
+
+export const login = (email, password, rememberMe) => (dispatch) => {
+authAPI.login(email, password, rememberMe).then((data) => {
+  if(data.resultCode === 0) {
+dispatch(getAuthUserDataThunk())
+  }
+})
+};
+
+export const logout = () => (dispatch) => {
+  authAPI.logout().then((data) => {
+    if(data.resultCode === 0) {
+  dispatch(setUserLoginActionCreator(null, null, null, false))
+    }
+  })
+  };
+
+
+
