@@ -2,29 +2,29 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-  setCurrentPageActionReduser,
   getUsersThunkCreator,
   followThunkCreator,
-  unfollowThunkCreator
+  unfollowThunkCreator,
 } from "../../redux/users-reduser";
 import LoaderSpinner from "../../helpers/LoaderSpinner/LoaderSpinner";
-
-
-
+import {
+  getActivePage,
+  getFollowindInProgress,
+  getIsUserActive,
+  getPageSize,
+  getTooalUsersCount,
+  getUsers,
+} from "../../redux/users-selectors";
 
 class UsersContainer extends Component {
   componentDidMount() {
-
-    this.props.getUsers(this.props.activePage, this.props.pageSize)
-
+    this.props.requestUsers(this.props.activePage, this.props.pageSize);
   }
 
   handlePageChange = (e, p) => {
-    this.props.setActivePage(p);
     e.target.style = "font-weight: 700;";
 
-    this.props.getUsers(p, this.props.pageSize)
-
+    this.props.requestUsers(p, this.props.pageSize);
   };
 
   render() {
@@ -32,19 +32,30 @@ class UsersContainer extends Component {
     return (
       <div>
         {this.props.isLoading ? <LoaderSpinner /> : null}
-    <Users {...this.props} handlePageChange={this.handlePageChange} />
-    </div>
-    )
+        <Users {...this.props} handlePageChange={this.handlePageChange} />
+      </div>
+    );
   }
 }
+// const mapStateToProps = (state) => {
+//   return {
+//     users: state.usersReduser.users,
+//     pageSize: state.usersReduser.pageSize,
+//     totalUsersCount: state.usersReduser.totalUsersCount,
+//     activePage: state.usersReduser.activePage,
+//     isLoading: state.usersReduser.isLoading,
+//     isFollovingToggle: state.usersReduser.followingInProgress,
+//   };
+// };
+
 const mapStateToProps = (state) => {
   return {
-    users: state.usersReduser.users,
-    pageSize: state.usersReduser.pageSize,
-    totalUsersCount: state.usersReduser.totalUsersCount,
-    activePage: state.usersReduser.activePage,
-    isLoading: state.usersReduser.isLoading,
-    isFollovingToggle: state.usersReduser.followingInProgress,
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTooalUsersCount(state),
+    activePage: getActivePage(state),
+    isLoading: getIsUserActive(state),
+    isFollovingToggle: getFollowindInProgress(state),
   };
 };
 
@@ -72,8 +83,7 @@ const mapStateToProps = (state) => {
 // };
 
 export default connect(mapStateToProps, {
-  setActivePage: setCurrentPageActionReduser,
- getUsers: getUsersThunkCreator,
-follow: followThunkCreator,
-unfollow: unfollowThunkCreator
+  requestUsers: getUsersThunkCreator,
+  follow: followThunkCreator,
+  unfollow: unfollowThunkCreator,
 })(UsersContainer);
