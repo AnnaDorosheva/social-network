@@ -5,7 +5,6 @@ import s from "./PrifileInfo.module.css";
 import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = ({userProfile, userStatus, updateStatus}) => {
-  // console.log(userStatus)
   if(!userProfile) {
     return <LoaderSpinner />
   };

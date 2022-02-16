@@ -84,6 +84,9 @@ export const updateUserStatusThunk = (status) => (dispatch) => {
   profileAPI.updateStatus(status).then((data) => {
     if (data.resultCode === 0) {
       dispatch(setStatusActionCreator(status));
+      console.log("Статус обновился")
+    } else {
+      console.log("Статус не обновился!!!!!!!")
     }
   });
 };

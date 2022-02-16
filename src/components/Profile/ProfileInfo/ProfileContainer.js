@@ -21,6 +21,7 @@ class ProfileContainer extends Component {
     }
 
     this.props.getUserProfile(userId, this.props.setLoading);
+    
     this.props.getUserStatus(userId);
   }
   render() {
