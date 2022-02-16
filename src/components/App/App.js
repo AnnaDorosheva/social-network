@@ -10,6 +10,7 @@ import StartPage from "../StartPage/StartPage";
 import Login from "../Login/Login";
 
 const App = (props) => {
+  console.log(props.store);
   return (
     <div className={s.container}>
       <HeaderContainer />

@@ -15,6 +15,7 @@ import { compose } from "redux";
 class ProfileContainer extends Component {
   componentDidMount() {
     this.props.setLoading(true);
+    console.log(this.props.match.params.userId,  this.props )
     let userId = this.props.match.params.userId;
     if (!userId) {
       userId = 2;
