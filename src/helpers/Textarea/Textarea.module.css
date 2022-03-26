@@ -7,8 +7,9 @@
   color: red;
 }
 .span {
-  display: block;
+  display: inline;
   width: 200px;
+  color: red;
   box-shadow: 0 0 6px rgba(252, 53, 53, 0.5) inset;
   padding: 2px 6px;
 }

@@ -34,7 +34,7 @@ export const usersAPI = {
     .get(`profile/` + id).then(response => response.data);
   }
 };
-
+ 
 
 export const profileAPI = {
   getProfile(id) {

@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import {Field, reduxForm} from 'redux-form';
 import { Input } from "../../helpers/Textarea/Textarea";
-import {required, maxLengthCreator} from "../../helpers/validators/validators";
+import {required} from "../../helpers/validators/validators";
 import { login } from '../../redux/auth-reduser';
+import s from "../../helpers/Textarea/Textarea.module.css";
 
-const maxlength = maxLengthCreator(16)
 
 const LoginForm = (props) => {
   // console.log(props)
@@ -16,12 +16,13 @@ const LoginForm = (props) => {
         <Field placeholder={"Login"} name={"email"} component={Input} validate={[required]} />
       </div>
       <div>
-        <Field placeholder={"Password"} name={"password"} type={"password"} component={Input} validate={[required, maxlength]} />
+        <Field placeholder={"Password"} name={"password"} type={"password"} component={Input} validate={[required]} />
       </div>
       <div>
         <Field type={"checkbox"} name={"rememberMe"} component={Input} />
         remember me
       </div>
+      {props.error && <span className={s.span}>{props.error}</span>}
       <div>
         <button type="submit">Login</button>
       </div>

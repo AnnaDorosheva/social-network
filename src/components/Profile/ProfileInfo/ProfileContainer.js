@@ -18,7 +18,7 @@ class ProfileContainer extends Component {
     console.log(this.props.match.params.userId,  this.props )
     let userId = this.props.match.params.userId;
     if (!userId) {
-      userId = 2;
+      userId = this.props.myId;
     }
 
     this.props.getUserProfile(userId, this.props.setLoading);
@@ -39,13 +39,9 @@ const mapStateToProps = (state) => {
     userProfile: state.profileReduser.userProfile,
     isLoading: state.usersReduser.isLoading,
     status: state.profileReduser.status,
+    myId: state.authReduser.userId
   };
 };
-
-// export default connect(mapStateToProps, {
-//   setLoading: isLoadingActionCreator,
-//   getUserProfile: getUserProfileThunk
-// })(WithRouturerProfileContainer);
 
 export default compose(
   connect(mapStateToProps, {

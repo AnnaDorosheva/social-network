@@ -1,4 +1,5 @@
 import {authAPI} from '../api';
+import { stopSubmit } from 'redux-form';
 
 const SET_USER_LOGIN = "SET_USER_LOGIN";
 
@@ -16,7 +17,6 @@ case SET_USER_LOGIN:
  return {
 ...state,
 ...action.data,
-// isAuth: true
   }
   default:
     return state;
@@ -38,20 +38,21 @@ export const setUserLoginActionCreator = (userId, email, login, isAuth) => {
 };
 
 export const getAuthUserDataThunk = () => (dispatch) => {
-  authAPI.me().then((data) => {
-     
+  return authAPI.me().then((data) => {
     if(data.resultCode === 0) {
       const {id, email, login } = data.data;
       dispatch(setUserLoginActionCreator(id, email, login, true));
     }
-   
-  })
+  });
 };
 
 export const login = (email, password, rememberMe) => (dispatch) => {
 authAPI.login(email, password, rememberMe).then((data) => {
   if(data.resultCode === 0) {
 dispatch(getAuthUserDataThunk())
+  } else {
+const message = data.messages.length > 0 ? data.messages[0] : "Somesing is wrong";
+    dispatch(stopSubmit("login", { _error: message}));
   }
 })
 };
