@@ -15,7 +15,9 @@ export default class ProfileStatus extends Component {
     this.setState({
       editMode: false,
     });
+    this.props.updateStatus(this.state.status);
   };
+
   handleStatusChange = (e) => {
     this.setState({
       status: e.target.value,
@@ -36,7 +38,7 @@ export default class ProfileStatus extends Component {
       <>
         {!editMode ? (
           <span onClick={this.handleActivateEditMode}>
-            {this.props.status || "Status: ......"}
+            {this.props.status || "Status: К сожалению, статуса нет..."}
           </span>
         ) : (
           <input

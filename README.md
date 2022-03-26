@@ -5,6 +5,12 @@
 
 API: https://social-network.samuraijs.com/
 
+Приложение социальной сети. Написано на React/Redux, Redux Thunk. В качестве API используется база данных для обучающихся, поэтому профили практически не заполнены, созданы для обучения.
+
+На данном этапе разработки, в соцсети можно зарегистрироваться, создать свой профиль, смотреть профили других участников, добавлять и удалять в подписки, менять свой статус, добавлять сообщения. Разработка в процессе, еще не закончена.
+
+API: https://social-network.samuraijs.com/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
