@@ -1,13 +1,25 @@
+// import { type } from "os";
 
 
 const ADD_DIALOG_MESSAGE = "ADD_DIALOG_MESSAGE";
+
+type DialogType = {
+  id: number,
+  message: string
+};
+
+type DialogsUsersType = {
+  id: number,
+  name: string,
+  img: string
+};
 
 const initialState = {
     dialogUserMessages: [
       { id: 1, message: "Hello!!!" },
       { id: 2, message: "How are you?" },
       { id: 3, message: "I am fine:)" },
-    ],
+    ] as Array<DialogType>,
   dialogsUsers: [
     {
       id: 1,
@@ -35,11 +47,13 @@ const initialState = {
       name: "Vova",
       img: "https://cspromogame.ru//storage/upload_images/avatars/1299.jpg",
     },
-  ],
+  ] as Array<DialogsUsersType>,
 };
 
+export type InitialStateType = typeof initialState;
 
-const dialogReduser = (state = initialState, action) => {
+
+const dialogReduser = (state = initialState, action: any) : InitialStateType => {
   
     switch (action.type) {
       case ADD_DIALOG_MESSAGE:
@@ -49,7 +63,7 @@ const dialogReduser = (state = initialState, action) => {
         };
         const stateCopy = {
           ...state,
-        dialogUserMessages: [...state.dialogUserMessages, newDialogItem]
+        dialogUserMessages: [...state.dialogUserMessages, newDialogItem],
         };
  
         return stateCopy;
@@ -62,7 +76,12 @@ const dialogReduser = (state = initialState, action) => {
 
 export default dialogReduser;
 
-export const addDialogMessageCreator = (newMessage) => {
+type AddDialogMessageCreatorType = {
+type: typeof ADD_DIALOG_MESSAGE,
+newMessage: string
+}
+
+export const addDialogMessageCreator = (newMessage : string) : AddDialogMessageCreatorType => {
   return {
     type: ADD_DIALOG_MESSAGE,
     newMessage

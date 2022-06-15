@@ -1,12 +1,17 @@
+// import { initializedActionCreator } from './app-reduser';
 import { getAuthUserDataThunk } from "./auth-reduser";
 
 const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
 
-const initialstate = {
+export type InitializedType = {
+  initialized: boolean
+};
+
+const initialstate: InitializedType = {
   initialized: false,
 };
 
-const appReduser = (state = initialstate, action) => {
+const appReduser = (state = initialstate, action: any) : InitializedType => {
   switch (action.type) {
     case INITIALIZED_SUCCESS:
       return {
@@ -19,13 +24,17 @@ const appReduser = (state = initialstate, action) => {
 };
 export default appReduser;
 
-export const initializedActionCreator = () => {
+export type InitializedSuccesActionType = {
+type: typeof INITIALIZED_SUCCESS
+};
+
+export const initializedActionCreator = () : InitializedSuccesActionType => {
   return {
     type: INITIALIZED_SUCCESS,
   };
 };
 
-export const initializeAPP = () => (dispatch) => {
+export const initializeAPP = () => (dispatch: any) => {
   const dispatchResult = dispatch(getAuthUserDataThunk());
 
   Promise.all([dispatchResult]).then(() => {

@@ -1,8 +1,20 @@
 import React from "react";
 import User from "./User";
 import s from "./Users.module.css";
+import { UserType } from "../../types/typtes";
 
-const Users = ({
+export type UsersPropsType = {
+  users: Array<UserType>
+  follow: (id: number) => void
+  unfollow: (id: number) => void
+  totalUsersCount: number
+  pageSize: number
+  activePage: number
+  handlePageChange: (e: React.SyntheticEvent, p: number)=> void
+  isFollovingToggle: Array<number>
+}
+
+const Users : React.FC<UsersPropsType> = ({
   users,
   follow,
   unfollow,
@@ -12,7 +24,6 @@ const Users = ({
   handlePageChange,
   isFollovingToggle,
 }) => {
-  // console.log("ppp", props)
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const pages = [];
@@ -27,7 +38,7 @@ const Users = ({
         {pages.slice(0, 20).map((p) => (
           <li key={p}
             className={activePage === p ? s.selected : s.numberPage}
-            onClick={(e) => {
+            onClick={(e : React.SyntheticEvent) => {
               handlePageChange(e, p);
             }}
           >

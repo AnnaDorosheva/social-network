@@ -15,14 +15,38 @@ import {
   getTooalUsersCount,
   getUsers,
 } from "../../redux/users-selectors";
+import { UserType } from "../../types/typtes";
+import { AppStateType } from "../../redux/redux-store";
 
-class UsersContainer extends Component {
+type MapStateToPropsType = {
+  users: Array<UserType>
+  totalUsersCount: number
+  isFollovingToggle: Array<number>
+  activePage: number
+  pageSize: number
+  isLoading: boolean
+};
+
+type MapDispatchToPropsType = {
+  follow: (id: number) => void
+  unfollow: (id: number) => void
+  requestUsers: (activePage: number, pageSize: number) => void
+};
+
+type OwnPropsType = {
+  handlePageChange: (e: React.SyntheticEvent, p: number)=> void
+};
+
+type PropsType = MapDispatchToPropsType & MapStateToPropsType & OwnPropsType;
+class UsersContainer extends Component<PropsType> {
   componentDidMount() {
-    this.props.requestUsers(this.props.activePage, this.props.pageSize);
-  }
+    const { activePage, pageSize } = this.props;
+    this.props.requestUsers(activePage, pageSize);
+  };
 
-  handlePageChange = (e, p) => {
-    e.target.style = "font-weight: 700;";
+  handlePageChange = (e: React.SyntheticEvent, p: number) => {
+    // const { target } = e;
+    // target.style = "font-weight: 700;";
 
     this.props.requestUsers(p, this.props.pageSize);
   };
@@ -32,7 +56,7 @@ class UsersContainer extends Component {
     return (
       <div>
         {this.props.isLoading ? <LoaderSpinner /> : null}
-        <Users {...this.props} handlePageChange={this.handlePageChange} />
+        <Users { ...this.props} handlePageChange={this.handlePageChange} />
       </div>
     );
   }
@@ -48,7 +72,7 @@ class UsersContainer extends Component {
 //   };
 // };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) : MapStateToPropsType => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),
@@ -82,7 +106,7 @@ const mapStateToProps = (state) => {
 //   };
 // };
 
-export default connect(mapStateToProps, {
+export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
   requestUsers: getUsersThunkCreator,
   follow: followThunkCreator,
   unfollow: unfollowThunkCreator,

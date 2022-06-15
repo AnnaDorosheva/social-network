@@ -19,6 +19,11 @@ authReduser,
 form: formReducer,
 appReduser
 });
+
+type RoodReduserType = typeof redusers;
+export type AppStateType = ReturnType<RoodReduserType>;
+
+
 const store = createStore(redusers, applyMiddleware(thunkMiddleware));
 
 export default store;

@@ -8,7 +8,7 @@ import store from "./redux/redux-store";
 import { Provider } from 'react-redux';
 
 
-// const rerenderApp = (state) => {
+
   ReactDOM.render(
     <BrowserRouter>
     <Provider store={store}>
@@ -17,15 +17,7 @@ import { Provider } from 'react-redux';
     </BrowserRouter>,
     document.getElementById('root')
   );
-// };
 
-// rerenderApp(store.getState());
-
-// store.subscribe(() => {
-//   let state = store.getState();
-//   // console.log(state);
-//   rerenderApp(state);
-// });
 
 
 
